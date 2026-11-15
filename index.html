@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>OTS Performance</title>
+<style>
+:root{--bg:#0b1020;--panel:#141b2e;--panel2:#1b2540;--text:#f3f6ff;--muted:#9eabc7;--blue:#55a7ff;--green:#4de0a2;--line:#293653;--orange:#ffbd69}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:26px 20px 18px;background:linear-gradient(140deg,#121b32,#0b1020);border-bottom:1px solid var(--line)}
+.kicker{color:var(--blue);font-weight:800;font-size:11px;letter-spacing:2px}h1{font-size:27px;margin:7px 0 4px}header p{margin:0;color:var(--muted);font-size:14px}
+nav{display:flex;gap:8px;padding:12px 14px;position:sticky;top:0;background:#0b1020ed;backdrop-filter:blur(10px);z-index:3;overflow:auto}
+nav button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:12px;padding:10px 13px;font-weight:700;white-space:nowrap}
+nav button.active{background:var(--blue);color:#071225;border-color:var(--blue)}
+main{padding:4px 14px 35px;max-width:700px;margin:auto}.screen{display:none}.screen.active{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted)}
+h2{font-size:20px;margin:18px 2px 10px}h3{margin:0 0 6px;font-size:16px}
+.metric{font-size:27px;font-weight:850}.pill{font-size:11px;color:var(--blue);background:#163153;padding:6px 9px;border-radius:99px;font-weight:800}
+.progress{height:8px;background:#26314b;border-radius:99px;overflow:hidden;margin:12px 0}.bar{height:100%;background:linear-gradient(90deg,#3988ff,#55d7ff);width:0%}
+.exercise{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}
+.exercise input{width:21px;height:21px;accent-color:var(--green);margin-top:2px}.exercise .details{flex:1}.exercise.done .details{text-decoration:line-through;opacity:.55}
+input,textarea,select{background:#0d1426;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px;font:inherit;width:100%;margin:6px 0}
+label{font-size:13px;color:var(--muted);display:block;margin-top:10px}
+button.primary{background:var(--blue);border:0;color:#071225;font-weight:800;border-radius:12px;padding:12px 15px;width:100%;margin-top:10px}
+button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid .card{margin:0}
+.stat{font-size:24px;font-weight:800}.notice{border-left:3px solid var(--orange);padding:10px 12px;background:#2a2230;border-radius:8px;color:#f5d5ad;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+</style>
+</head>
+<body>
+<header><div class="kicker">PERSONAL TRAINING SYSTEM</div><h1>OTS Performance</h1><p>Build the base. Earn the standard.</p></header>
+<nav>
+<button class="active" data-tab="home">Today</button><button data-tab="workout">Workout</button><button data-tab="progress">Progress</button><button data-tab="journal">Journal</button><button data-tab="recovery">Recovery</button>
+</nav>
+<main>
+<section id="home" class="screen active">
+<div class="card"><div class="row"><span class="pill">FOUNDATION · DAY 1</span><span class="small" id="today"></span></div><h2 style="margin-top:12px">Show up. Build consistency.</h2><p class="muted">Your training dashboard, designed around your OTS preparation.</p><div class="progress"><div class="bar" id="homebar"></div></div><div class="row"><b id="homecount">0 / 10 complete</b><span class="small">Today's checklist</span></div><button class="primary" onclick="tab('workout')">Open today's workout →</button></div>
+<div class="grid"><div class="card"><div class="small">BODY WEIGHT</div><div class="stat" id="weightHome">200 lb</div><div class="small">Starting baseline</div></div><div class="card"><div class="small">PUSH-UPS</div><div class="stat">5–15</div><div class="small">Baseline range</div></div></div>
+<div class="card"><h3>Current focus</h3><p>Strength foundation · pain-free conditioning · consistent recovery</p><div class="notice">Knee/shin note: avoid running through pain. Build gradually and consider a PT assessment for recurring symptoms.</div></div>
+<div class="card"><h3>Two-year mission</h3><div class="row"><span>Continuous 2-mile run</span><span class="pill">BUILD</span></div><div class="row" style="margin-top:12px"><span>Push-ups & sit-ups</span><span class="pill">BUILD</span></div><div class="row" style="margin-top:12px"><span>OTS conditioning readiness</span><span class="pill">LONG TERM</span></div></div>
+</section>
+<section id="workout" class="screen">
+<h2>Today's workout</h2><div class="card"><div class="row"><span class="pill">DAY 1 · FULL BODY</span><span class="small">45–55 min</span></div><p class="muted">Check off each item as you complete it. Your progress saves on this device.</p><div class="progress"><div class="bar" id="workbar"></div></div><b id="workcount">0 / 10 complete</b><div id="checklist"></div><button class="secondary" onclick="resetWorkout()">Reset checklist</button></div>
+<div class="card"><h3>Burpee progression</h3><p>Start with incline step-back burpees only if pain-free. No jump initially. Progress to full Navy SEAL burpees only when your knee tolerates the movement.</p><div class="notice">Burpees are an accessory—not an official OTS test event.</div></div>
+</section>
+<section id="progress" class="screen">
+<h2>Progress tracker</h2><div class="card"><h3>Body weight</h3><label>Log today's weight (lb)</label><input type="number" id="weight" placeholder="e.g. 199.5" step=".1"><button class="primary" onclick="saveWeight()">Save weight</button><div id="weights" class="small" style="margin-top:12px"></div></div>
+<div class="card"><h3>Fitness benchmarks</h3><label>Max quality push-ups</label><input id="push" type="number" placeholder="Baseline: 5–15"><label>Continuous run (minutes)</label><input id="run" type="number" placeholder="Current goal: build gradually"><label>2-mile time (optional)</label><input id="mile" placeholder="MM:SS"><button class="primary" onclick="saveBench()">Save benchmarks</button><p id="benchSaved" class="small"></p></div>
+<div class="card"><h3>Goal reminders</h3><p>• Build a comfortable continuous 2-mile run<br>• Improve push-up and sit-up endurance<br>• Track knee/shin symptoms alongside training<br>• Prepare progressively for OTS PT</p></div>
+</section>
+<section id="journal" class="screen">
+<h2>Post-workout diary</h2><div class="card"><label>Workout / date</label><input id="jdate" type="date"><label>How did the workout feel?</label><select id="energy"><option>Great</option><option>Good</option><option>Average</option><option>Tough</option><option>Exhausted</option></select><label>Knee discomfort (0–10)</label><input id="knee" type="number" min="0" max="10" value="0"><label>Shin discomfort (0–10)</label><input id="shin" type="number" min="0" max="10" value="0"><label>Notes / wins / adjustments</label><textarea id="notes" rows="4" placeholder="What went well? What should change next time?"></textarea><button class="primary" onclick="saveJournal()">Save diary entry</button></div><div class="card"><h3>Recent entries</h3><div id="entries" class="muted small">Your saved entries will appear here.</div></div>
+</section>
+<section id="recovery" class="screen">
+<h2>Recovery room</h2><div class="card"><h3>Cooldown timer</h3><div class="metric" id="timer" style="font-size:46px;text-align:center;margin:20px">05:00</div><div class="grid"><button class="secondary" onclick="startTimer()">Start 5 min</button><button class="secondary" onclick="stopTimer()">Pause / reset</button></div><p class="small">Easy walking and gentle mobility. Cool down before sauna; hydrate and avoid heat if dizzy or dehydrated.</p></div>
+<div class="card"><h3>Recovery checklist</h3><p>☐ Water and electrolytes as appropriate<br>☐ Protein + carbohydrates after training<br>☐ Sleep target: 7–9 hours<br>☐ Check for delayed knee/shin symptoms<br>☐ Easy day after demanding sessions</p></div>
+<div class="card"><h3>Safety note</h3><p class="muted">Stop movements that cause pain. Persistent, worsening, swollen, or focal knee/shin pain deserves evaluation by a clinician or physical therapist.</p></div>
+</section>
+<footer>OTS PERFORMANCE · Personal prototype · Data stays in this browser on this device</footer>
+</main>
+<script>
+const items=["Warm-up: 5-minute track walk + gentle mobility","Chest press — 3 × 10","Lat pulldown — 3 × 10","Seated row — 2 × 12","Glute bridges — 2 × 12","Calf raises — 2 × 15","Incline push-ups — 3 × 5–8","Plank + dead bugs","Modified burpee practice (only if pain-free)","Cooldown + hydration"];
+let checks=JSON.parse(localStorage.getItem("ots_checks")||"[]");
+function tab(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+function renderChecks(){let el=document.getElementById("checklist");el.innerHTML="";items.forEach((t,i)=>{let d=document.createElement("div");d.className="exercise "+(checks.includes(i)?"done":"");d.innerHTML=`<input type="checkbox" ${checks.includes(i)?"checked":""} aria-label="Complete item"><div class="details"><b>${t}</b></div>`;d.querySelector("input").onchange=e=>{checks=e.target.checked?[...checks,i]:checks.filter(n=>n!==i);localStorage.setItem("ots_checks",JSON.stringify(checks));renderChecks()};el.appendChild(d)});let n=checks.length;["homebar","workbar"].forEach(id=>document.getElementById(id).style.width=n/items.length*100+"%");["homecount","workcount"].forEach(id=>document.getElementById(id).textContent=n+" / "+items.length+" complete");}
+function resetWorkout(){checks=[];localStorage.setItem("ots_checks","[]");renderChecks()}
+document.getElementById("today").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
+document.getElementById("jdate").value=new Date().toISOString().slice(0,10);
+let history=JSON.parse(localStorage.getItem("ots_weights")||"[]");
+function renderWeights(){document.getElementById("weights").innerHTML=history.length?history.slice(-10).reverse().map(x=>`${x.date}: <b>${x.weight} lb</b>`).join("<br>"):"No entries yet.";document.getElementById("weightHome").textContent=history.length?history[history.length-1].weight+" lb":"200 lb";}
+function saveWeight(){let w=Number(document.getElementById("weight").value);if(!w)return;history.push({date:new Date().toLocaleDateString(),weight:w});localStorage.setItem("ots_weights",JSON.stringify(history));renderWeights();document.getElementById("weight").value=""}
+function saveBench(){let b={push:document.getElementById("push").value,run:document.getElementById("run").value,mile:document.getElementById("mile").value};localStorage.setItem("ots_bench",JSON.stringify(b));document.getElementById("benchSaved").textContent="Benchmarks saved on this device."}
+let journals=JSON.parse(localStorage.getItem("ots_journal")||"[]");
+function renderJournals(){document.getElementById("entries").innerHTML=journals.length?journals.slice().reverse().map(x=>`<div style="border-bottom:1px solid var(--line);padding:10px 0"><b>${x.date} · ${x.energy}</b><br>Knee ${x.knee}/10 · Shin ${x.shin}/10<br>${x.notes||""}</div>`).join(""):"Your saved entries will appear here."}
+function saveJournal(){journals.push({date:document.getElementById("jdate").value,energy:document.getElementById("energy").value,knee:document.getElementById("knee").value,shin:document.getElementById("shin").value,notes:document.getElementById("notes").value});localStorage.setItem("ots_journal",JSON.stringify(journals));renderJournals();document.getElementById("notes").value=""}
+let interval=null,seconds=300;
+function showTimer(){document.getElementById("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")}
+function startTimer(){if(interval)return;interval=setInterval(()=>{seconds--;showTimer();if(seconds<=0){clearInterval(interval);interval=null;alert("Cooldown complete! Nice work.");}},1000)}
+function stopTimer(){clearInterval(interval);interval=null;seconds=300;showTimer()}
+renderChecks();renderWeights();renderJournals();showTimer();
+</script>
+<script>
+if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(()=>{})); }
+</script>
+</body></html>
